@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>首页</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/i/favicon.png') }}">
+    <link rel="apple-touch-icon-precomposed" href="{{ url_for('static', filename='assets/i/app-icon72x72@2x.png') }}">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/amazeui.min.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/amazeui.datatables.min.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/app.css') }}">
+    <script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+
+</head>
+
+<body data-type="login">
+<script src="{{ url_for('static', filename='assets/js/theme.js') }}"></script>
+<div class="am-g tpl-g">
+    <!-- 风格切换 -->
+    <div class="tpl-skiner">
+        <div class="tpl-skiner-toggle am-icon-cog">
+        </div>
+        <div class="tpl-skiner-content">
+            <div class="tpl-skiner-content-title">
+                选择主题
+            </div>
+            <div class="tpl-skiner-content-bar">
+                <span class="skiner-color skiner-white" data-color="theme-white"></span>
+                <span class="skiner-color skiner-black" data-color="theme-black"></span>
+            </div>
+        </div>
+    </div>
+    <div class="tpl-login">
+        <div class="tpl-login-content">
+            <div class="tpl-login-logo">
+
+            </div>
+            <div>
+                {% if current_user.is_authenticated %}
+                <div>
+                    <h1>欢迎{{ current_user.name }}</h1>
+                    <p>毕业生反馈与分析系统</p>
+                    <hr>
+                    {% if current_user.category == 3 %}
+                    <h4><a href="{{ url_for('student.index') }}">学生</a></h4>
+                    {% elif (current_user.category == 1) or (current_user.category == 0) %}
+                    <h4><a href="{{ url_for('user.index') }}">用户</a></h4>
+                    {% elif current_user.category == 4 %}
+                    <h4><a href="{{ url_for('student.zxindex') }}">在校生</a></h4>
+                    {% endif %}
+                </div>
+                {% else %}
+                <div>
+                    <h1>请选择登录</h1>
+                    <hr>
+                    <h4><a href="{{ url_for('user.login') }}">用户登录</a></h4>
+                    <h4><a href="{{ url_for('student.login') }}">学生登录</a></h4>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='assets/js/amazeui.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/app.js') }}"></script>
+</div>
+</body>
+</html>
